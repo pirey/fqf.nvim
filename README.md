@@ -2,6 +2,10 @@
 
 Enhanced quickfix and location list UI with fuzzy filtering for Neovim.
 
+## Demo
+
+<video src="fqf-demo.mp4" muted autoplay loop></video>
+
 ## Features
 
 - **Fuzzy filtering** for quickfix/location lists with live filtering as you type
