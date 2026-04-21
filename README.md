@@ -4,7 +4,11 @@ Enhanced quickfix and location list UI with fuzzy filtering for Neovim.
 
 ## Demo
 
-<video src="fqf-demo.mp4" muted autoplay loop></video>
+
+
+https://github.com/user-attachments/assets/074043c8-7ddc-428c-9e6a-1dab239dd4b0
+
+
 
 ## Features
 
