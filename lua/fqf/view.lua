@@ -12,16 +12,13 @@ View.default_opts = {
   use_lwin = false,
   filter_by = "filename",
   filter_debounce = 50,
-  chunk_size = 100,
   prompt = nil,
   on_change = nil,
   on_select = nil,
 }
 
 function View:new(items, opts)
-  opts = vim.tbl_deep_extend("force", View.default_opts, opts or {}, {
-    chunk_size = View.default_opts.chunk_size,
-  })
+  opts = vim.tbl_deep_extend("force", View.default_opts, opts or {})
   local prompt = opts.prompt ~= nil and opts.prompt or config.opts.prompt.prefix
   return setmetatable({
     list_idx = 1,
@@ -426,12 +423,13 @@ function View:render_items()
   end
 
   local function render_chunk_rec()
+    local CHUNK_SIZE = 100
     if gen ~= self.render_gen then
       return
     end
 
     local chunk = {}
-    local end_idx = math.min(self.render_idx + self.opts.chunk_size - 1, #items)
+    local end_idx = math.min(self.render_idx + CHUNK_SIZE - 1, #items)
     for i = self.render_idx, end_idx do
       chunk[#chunk + 1] = items[i]
     end
@@ -442,8 +440,8 @@ function View:render_items()
       vim.fn.setqflist({}, "a", { items = chunk })
     end
 
-    self.render_idx = self.render_idx + self.opts.chunk_size
-    local max = self.listfocus and #items or math.min(self.opts.chunk_size, #items)
+    self.render_idx = self.render_idx + CHUNK_SIZE
+    local max = self.listfocus and #items or math.min(CHUNK_SIZE, #items)
     if self.render_idx <= max then
       timer:start(
         RENDER_DELAY,
